@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 import io
 from PIL import Image
-
+import base64
 from Helpers import *
 
 def orders(pts):
@@ -93,15 +93,15 @@ def upload_image():
 
 		cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
 
-		file_object = io.BytesIO()
-		img= Image.fromarray(image.astype('uint8'))
-		img.save(file_object, 'PNG')
-		base64img = "data:image/png;base64,"+b64encode(file_object.getvalue()).decode('ascii')
-
 		warped = transform(orig, screenCnt.reshape(4, 2) * ratio)
-		cv2.imwrite("static/output_{}".format(filename), Helpers.resize(warped, height = 500)) 
 
-		return render_template('upload.html', filename="output_" + filename)
+		img = cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)
+		file_object = io.BytesIO()
+		img= Image.fromarray(Helpers.resize(img,width=500))
+		img.save(file_object, 'PNG')
+		base64img = "data:image/png;base64,"+base64.b64encode(file_object.getvalue()).decode('ascii')
+
+		return render_template('upload.html', image=base64img )
 	else:
 		flash('Allowed image types are -> png, jpg, jpeg')
 		return redirect(request.url)

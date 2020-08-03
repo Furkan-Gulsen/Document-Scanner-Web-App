@@ -12,10 +12,10 @@
     {% endif %}
     {% endwith %}
 </p>
-{% if filename %}
+{% if image %}
 <div>
-    <p>{{filename}}</p>
-    <img src="static/{{filename}}" />
+    <p>image: {{image}}</p>
+    <img src="{{image}}">
 </div>
 {% endif %}
 <form method="post" action="/" enctype="multipart/form-data">
