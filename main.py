@@ -66,7 +66,7 @@ def upload_image():
 		flash('No image selected for uploading')
 		return redirect(request.url)
 	if file and allowed_file(file.filename):
-		flash('Image successfully uploaded and displayed')
+		flash('Document scan was successful')
 		filename = secure_filename(file.filename)
 		
 		filestr = request.files['file'].read()
