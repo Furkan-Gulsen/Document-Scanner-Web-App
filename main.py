@@ -1,7 +1,5 @@
-import os
 from app import app
-import urllib.request
-from flask import Flask, flash, request, redirect, url_for, render_template
+from flask import Flask, flash, request, redirect, render_template
 from werkzeug.utils import secure_filename
 import cv2
 import numpy as np
